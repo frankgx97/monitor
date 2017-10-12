@@ -70,7 +70,7 @@ class MonitorInstance():
 
 def monitor():
     result = []
-    config = json.loads(open('config.json').read())
+    config = json.loads(open('master_config.json').read())
     for server in config['servers']:
         server_instance = MonitorInstance(server)
         result.append(server_instance.get_result())

@@ -1,0 +1,75 @@
+{
+    "mode": "master",
+    "agents": [
+        { "name": "vtr", "key": "qwerty" },
+        { "name": "qcl", "key": "asdfgh" }
+    ],
+    "mysql": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "root",
+        "password": "a46534dac9",
+        "db": "monitor"
+    },
+    "mail": {
+        "server": "smtp.exmail.qq.com",
+        "port": 465,
+        "username": "i@nyan.im",
+        "password": "qwerty",
+        "tls": true
+    },
+    "servers": [{
+            "server": "cat.nyan.im",
+            "name": "cat",
+            "ping": true,
+            "services": [{
+                "name": "test",
+                "url": "http://cat.nyan.im/",
+                "http": {
+                    "enable": true,
+                    "port": 80,
+                    "expect": [200, 301]
+                },
+                "https": {
+                    "enable": true,
+                    "port": 443,
+                    "expect": [200]
+                }
+            }]
+        },
+        {
+            "server": "vtr.nyan.im",
+            "name": "vtr",
+            "ping": true,
+            "services": [{
+                    "name": "blog",
+                    "url": "https://blog.nyan.im",
+                    "http": {
+                        "enable": true,
+                        "port": 80,
+                        "expect": [200, 301]
+                    },
+                    "https": {
+                        "enable": true,
+                        "port": 443,
+                        "expect": [200]
+                    }
+                },
+                {
+                    "name": "music",
+                    "url": "http://music.nyan.im",
+                    "http": {
+                        "enable": true,
+                        "port": 80,
+                        "expect": [200, 301]
+                    },
+                    "https": {
+                        "enable": false,
+                        "port": 443,
+                        "expect": [200]
+                    }
+                }
+            ]
+        }
+    ]
+}
