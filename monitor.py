@@ -50,7 +50,6 @@ class MonitorInstance():
 
     def get_result(self):
         result = {}
-        print self.config
         result['server'] = self.config['server']
         result['name'] = self.config['name']
         result['ping'] = float(self.get_ping())
@@ -76,6 +75,9 @@ def monitor():
         'agent_name':config['agent_name'],
         'agent_key': config['agent_key']
     })
+    #print r.content
+    #if json.loads(r.content)['status'] != 0:
+    #    raise Exception(json.loads(r.content)['error'])
     for server in json.loads(r.content):
         server_instance = MonitorInstance(server)
         result.append(server_instance.get_result())

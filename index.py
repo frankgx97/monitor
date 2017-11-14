@@ -4,6 +4,7 @@ from flask import jsonify
 import json
 from database import db_session
 from models import Server, Service
+import datetime
 
 app = Flask(__name__, static_url_path='/static')  # 定义/static目录为静态文件目录
 
@@ -14,7 +15,7 @@ def index():
     result = []
     config = json.loads(open('master_config.json').read())
     for server in config['servers']:
-        result.append(get_server_result(server))
+        result.append(get_server_result_latest(server))
     print result
     return render_template('index.html', result=result)
 
@@ -22,11 +23,20 @@ def index():
 def get_server(servername):
     '''渲染首页HTML模板'''
     config = json.loads(open('master_config.json').read())
+    result = {}
+    result['services'] = []
+    result['servers'] = read_db_server_within(servername, 24)
     for server in config['servers']:
         if server['name'] == servername:
-            result = get_server_result(server)
+            for service in server['services']:
+                result['services'].append(read_db_service_within(service['name'], 24))
             break
+    print result
     return render_template('server.html', result=result)
+
+@app.route("/test")
+def test():
+    print read_db_server_within('cat', 24)
 
 #API
 @app.route("/api/add_record", methods=['POST'])
@@ -54,7 +64,7 @@ def get_server_list():
 def shutdown_session(exception=None):
     db_session.remove()
 
-def get_server_result(server):
+def get_server_result_latest(server):
     server_result = {}
     server_result_db_read = read_db_server_latest(server['name'])
     server_result['name'] = server_result_db_read.name
@@ -80,12 +90,24 @@ def read_db_service_latest(service_name):
     '''读取指定服务的最新一条监控记录'''
     return list(reversed(Service.query.filter(Service.name == service_name).all()))[0]
 
+def read_db_server_within(server_name, hours):
+    '''读取指定服务器的特定时间范围内监控记录'''
+    current_time = datetime.datetime.now()
+    one_day_ago = current_time - datetime.timedelta(hours=hours)
+    return list(reversed(Server.query.filter(Server.name == server_name, Server.time > one_day_ago).all()))
+
+def read_db_service_within(service_name, hours):
+    '''读取指定服务器的特定时间范围内监控记录'''
+    current_time = datetime.datetime.now()
+    one_day_ago = current_time - datetime.timedelta(hours=hours)
+    return list(reversed(Service.query.filter(Service.name == service_name, Service.time > one_day_ago).all()))
+
 def write_db(data):
     for server in data['servers']:
         s = Server(
             server['name'],
-            data['agent_name'],
             server['server'],
+            data['agent_name'],
             convert_status(server['status']),
             server['ping']
             )

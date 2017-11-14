@@ -43,6 +43,13 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div>
+                        <h4>servers</h4>
+                        {% for i in result['servers'] %} {{ i.name }} {{ i.server }} {{ i.status }} {{ i.ping }} <br>{% endfor %}
+                        <h4>services</h4>
+                        {% for services in result['services'] %} {% for i in services %} {{ i.name }} {{ i.url }} {{ i.http }} {{ i.https }} {% endfor %}
+                        <br>{% endfor %}
+                    </div>
                 </div>
             </div>
         </main>
