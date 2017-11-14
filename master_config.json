@@ -2,6 +2,7 @@
     "mode": "master",
     "agents": [
         { "name": "vtr", "key": "qwerty" },
+        { "name": "local", "key": "qwerty" },
         { "name": "qcl", "key": "asdfgh" }
     ],
     "mysql": {
