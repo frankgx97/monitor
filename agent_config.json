@@ -1,6 +1,6 @@
 {
     "mode": "agent",
-    "master_url": "http://monitor.guoduhao.cn/",
-    "agent_name": "vtr",
+    "master_url": "http://localhost:5000/",
+    "agent_name": "local",
     "agent_key": "qwerty"
 }
