@@ -50,6 +50,7 @@ class MonitorInstance():
 
     def get_result(self):
         result = {}
+        print self.config
         result['server'] = self.config['server']
         result['name'] = self.config['name']
         result['ping'] = float(self.get_ping())
@@ -70,19 +71,25 @@ class MonitorInstance():
 
 def monitor():
     result = []
-    config = json.loads(open('master_config.json').read())
-    for server in config['servers']:
+    config = json.loads(open('agent_config.json').read())
+    r = requests.post(config['master_url'] + 'api/get_server_list', json={
+        'agent_name':config['agent_name'],
+        'agent_key': config['agent_key']
+    })
+    for server in json.loads(r.content):
         server_instance = MonitorInstance(server)
         result.append(server_instance.get_result())
     return result
 
 
 def send_result(result):
-    result_json = json.dumps(result)
-    requests.post(
-        'http://xxx.xxx',
-        result_json
-    )
+    '''将检测结果发送给master'''
+    config = json.loads(open('agent_config.json').read())
+    requests.post(config['master_url'] + 'api/add_record', json={
+        'agent_name':config['agent_name'],
+        'agent_key': config['agent_key'],
+        'servers':result
+    })
 
 rst = monitor()
-#send_result(rst)
+send_result(rst)
