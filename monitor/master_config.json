@@ -3,6 +3,7 @@
     "agents": [
         { "name": "vtr", "key": "qwerty" },
         { "name": "local", "key": "qwerty" },
+        { "name": "local1", "key": "qwerty" },
         { "name": "qcl", "key": "asdfgh" }
     ],
     "mysql": {
@@ -39,7 +40,7 @@
             }]
         },
         {
-            "server": "vtr.nyan.im",
+            "server": "vtrs.nyan.im",
             "name": "vtr",
             "ping": true,
             "services": [{
