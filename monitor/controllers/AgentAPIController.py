@@ -13,20 +13,7 @@ def get_server_list():
     data = request.get_json()
     if not verify_agent(data):
         return jsonify({'status':1, 'error':'AccessDenied'})
-    #config = json.loads(open('master_config.json').read())
-    #config = app.config['configure']
     return jsonify(config['servers'])
-
-def verify_agent(data):
-    '''验证agent的key是否正确'''
-    print data
-    #config = json.loads(open('master_config.json').read())
-    agent_name = data['agent_name']
-    agent_key = data['agent_key']
-    for i in config['agents']:
-        if i['name'] == agent_name and i['key'] == agent_key:
-            return True
-    return False
 
 @agent_api.route("/api/add_record", methods=['POST'])
 def add_record():
@@ -38,3 +25,14 @@ def add_record():
     write_db(data)
     #TODO:报警
     return jsonify({'status':0, 'error':'success'})
+
+def verify_agent(data):
+    '''验证agent的key是否正确'''
+    print data
+    #config = json.loads(open('master_config.json').read())
+    agent_name = data['agent_name']
+    agent_key = data['agent_key']
+    for i in config['agents']:
+        if i['name'] == agent_name and i['key'] == agent_key:
+            return True
+    return False
