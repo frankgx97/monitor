@@ -5,7 +5,10 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import json
 
-db_config = json.loads(open("master_config.json").read())['mysql']
+from monitor.config import config
+
+#db_config = json.loads(open("master_config.json").read())['mysql']
+db_config = config['mysql']
 db_connection = "mysql+mysqldb://"+db_config['user']+":"+db_config['password']+"@"+db_config['host']+":"+str(db_config['port'])+"/"+db_config['db']
 
 engine = create_engine(db_connection, convert_unicode=True)

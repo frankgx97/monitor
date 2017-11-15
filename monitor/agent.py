@@ -24,10 +24,14 @@ class MonitorInstance():
 
     def get_ping(self):
         if self.config['ping']:
-            r = pyping.ping(self.config['server'])
-            if r.ret_code is 1:
+            try:
+                r = pyping.ping(self.config['server'])
+                if r.ret_code is 1:
+                    return -1
+                else:
+                    return r.avg_rtt
+            except:
                 return -1
-            return r.avg_rtt
         else:
             return False
 
@@ -70,7 +74,7 @@ class MonitorInstance():
 
 def monitor():
     result = []
-    config = json.loads(open('agent_config.json').read())
+    config = json.loads(open('./agent_config.json').read())
     r = requests.post(config['master_url'] + 'api/get_server_list', json={
         'agent_name':config['agent_name'],
         'agent_key': config['agent_key']
