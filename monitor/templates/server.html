@@ -17,6 +17,7 @@
                             <span class="mdl-chip__text">Ping: 23.44</span>
                     </span>
                     <div id="pingchart" style="width: 100%;height:400px;"></div>
+                    <div id="servicechart" style="width: 100%;height:400px;"></div>
                     <table width=100% class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                         <thead>
                             <tr>
@@ -71,7 +72,7 @@
         $.ajax({
             url:'/api/get_server_data/cat/72',
             success : function(result){
-                var myChart = echarts.init(document.getElementById('pingchart'));
+                var pingChart = echarts.init(document.getElementById('pingchart'));
 
                 var series = [];
                 for (var i in result){
@@ -88,7 +89,7 @@
                 }
 
                 // 指定图表的配置项和数据
-                var option = {
+                var server_option = {
                     title: {
                         text: "{{ result['servers'][0].server }}"
                     },
@@ -104,7 +105,69 @@
                 };
 
                 // 使用刚指定的配置项和数据显示图表。
-                myChart.setOption(option);
+                pingChart.setOption(server_option);
+            }
+        });
+    </script>
+    <script>
+        $.ajax({
+            url:'/api/get_service_data/test/72',
+            success : function(result){
+                var serviceChart = echarts.init(document.getElementById('servicechart'));
+                data = result.data.map(function (item) {
+                    return [item[1], item[0], item[2] || '-'];
+                });
+                console.log(data)
+                
+                var service_option = {
+                    tooltip: {
+                        position: 'top'
+                    },
+                    animation: false,
+                    grid: {
+                        height: '50%',
+                        y: '10%'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: result.time,
+                        splitArea: {
+                            show: true
+                        }
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: ['http','https'],
+                        splitArea: {
+                            show: true
+                        }
+                    },
+                    visualMap: {
+                        min: 0,
+                        max: 2,
+                        calculable: true,
+                        orient: 'horizontal',
+                        left: 'center',
+                        bottom: '15%'
+                    },
+                    series: [{
+                        name: 'Punch Card',
+                        type: 'heatmap',
+                        data: data,
+                        label: {
+                            normal: {
+                                show: true
+                            }
+                        },
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }]
+                };
+                serviceChart.setOption(service_option);
             }
         });
     </script>

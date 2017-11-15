@@ -31,3 +31,32 @@ def get_server_data(servername, hours):
             result[i.agent]['date'].append(str(i.time))
             result[i.agent]['data'].append(i.ping)
     return jsonify(result)
+
+@client_api.route("/api/get_service_data/<servicename>/<hours>")
+def get_service_data(servicename, hours):
+    '''
+    for echart rendering
+    '''
+    result = {}
+    data = read_db_service_within(servicename, int(hours))
+    time = []
+    data_list = []
+    for i in data:
+        time.append(str(i.time))
+
+    for i in range(0,2):
+        for j in range(0,len(data)-1):
+            if i == 0:
+                data_list.append([i,j,data[j].http])
+            elif i == 1:
+                data_list.append([i,j,data[j].https])
+
+    result = {
+        'name':data[0].name,
+        'server':data[0].server_name,
+        'url':data[0].url,
+        'time':time,
+        'agent':data[0].agent,
+        'data':data_list
+    }
+    return jsonify(result)
