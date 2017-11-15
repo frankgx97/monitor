@@ -1,3 +1,7 @@
 *.pyc
 monitor/config.json
 monitor/example.json
+agent_config.json
+master_config.json
+monitor/agent_config.json
+monitor/master_config.json
