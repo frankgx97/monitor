@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Preparation') {
       steps {
-        git(url: 'https://github.com/nyanim/monitor.git', branch: 'master', credentialsId: '9ad60ea9-8650-4bb2-8d59-6fd9500d48a2')
+        git(url: 'https://github.com/nyanim/monitor.git', branch: 'dev', credentialsId: '9ad60ea9-8650-4bb2-8d59-6fd9500d48a2')
       }
     }
     stage('Build') {
