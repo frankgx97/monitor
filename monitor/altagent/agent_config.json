@@ -1,6 +1,0 @@
-{
-    "mode": "agent",
-    "master_url": "http://localhost:5000/",
-    "agent_name": "local1",
-    "agent_key": "qwerty"
-}

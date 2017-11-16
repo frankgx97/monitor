@@ -32,6 +32,16 @@ def get_server_data(servername, hours):
             result[i.agent]['data'].append(i.ping)
     return jsonify(result)
 
+@client_api.route("/api/get_service_from_server/<servername>")
+def get_service_from_server(servername):
+    '''获取某一服务器的所有服务'''
+    result = []
+    for server in config['servers']:
+        if server['name'] == servername:
+            for service in server['services']:
+                result.append(service['name'])
+    return jsonify(result)
+
 @client_api.route("/api/get_service_data/<servicename>/<hours>")
 def get_service_data(servicename, hours):
     '''
