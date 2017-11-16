@@ -77,7 +77,7 @@ def convert_status(st):
         return 1
     elif st == 'offline':
         return 0
-    elif st == 'disable':
+    elif st == 'disabled':
         return -1
     else:
         return 2
