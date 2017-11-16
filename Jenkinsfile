@@ -20,7 +20,7 @@ pipeline {
             sudo docker push nyanim/monitor:latest
             '''
             sh '''
-            sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no -l $SSH_QCL_USER $SSH_HOST <<EOF 
+            sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no -l $SSH_USER $SSH_QCL_HOST <<EOF 
             echo $SSH_PASSWORD | sudo -S docker-compose -f $MONITOR_COMPOSE_FILE down
             sudo docker pull nyanim/shadowsocks
             sudo docker-compose -f $MONITOR_COMPOSE_FILE up -d 
