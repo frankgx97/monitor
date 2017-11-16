@@ -4,7 +4,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apk add --no-cache py-mysqldb \
+&& pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5000
 
