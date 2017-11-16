@@ -1,0 +1,7 @@
+monitor/agent_config.json
+monitor/master_config.json
+*.pyc
+monitor/example.json
+monitor/altagent/
+agent_config.json
+master_config.json
