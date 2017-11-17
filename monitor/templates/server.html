@@ -18,6 +18,19 @@
             {% endif %}
             <span class="badge badge-secondary badge-warning">Ping: {{ result['servers'][0].ping }}</span>
         </h5>
+        <form>
+            <div class="form-group" style="width:10%;">
+                <label for="exampleFormControlSelect1">Time range:</label>
+                <select class="form-control" id="timerange_select">
+                    <option>3</option>
+                    <option>6</option>
+                    <option>12</option>
+                    <option selected="selected">24</option>
+                    <option>36</option>
+                    <option>72</option>
+                </select>
+            </div>
+        </form>
         <h4>Ping</h4>
         <!-- ping chart -->
         <div id="pingchart" style="width: 100%;height:400px;"></div>
