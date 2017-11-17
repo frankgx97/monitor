@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN apk add --no-cache py-mysqldb \
+RUN apk add --no-cache mariadb-dev mariadb-client mariadb-libs \
 && pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5000
