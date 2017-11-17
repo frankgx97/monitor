@@ -5,9 +5,14 @@
 <body>
     {% include 'header.html' %}
     <div class="container">
-        <div class="alert alert-success" role="alert">
-            All servers UP!
-        </div>
+        {% if status == 1 %}
+        <div class="alert alert-success" role="alert">All servers Online!</div>
+        {% elif status == 0 %}
+        <div class="alert alert-danger" role="alert">Server Offline!</div>
+        {% elif status == 2 %}
+        <div class="alert alert-warning" role="alert">Server Unstable!</div>
+        {% endif %}
+
         <div class="row">
             {% for i in server_list %}
             <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
@@ -15,7 +20,16 @@
                     <img class="card-img-top" src="https://placeimg.com/640/480/nature" alt="Card image cap">
                     <div class="card-body">
                         <h4 class="card-title">{{ i['name'] }}</h4>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">
+                                {% if i['status'] == 0 %}
+                                <span class="badge badge-secondary badge-danger">Offline</span>
+                                {% elif i['status'] == 1 %}
+                                <span class="badge badge-secondary badge-success">Online</span>
+                                {% elif i['status'] == 2 %}
+                                <span class="badge badge-secondary badge-warning">Unstable</span>
+                                {% endif %}
+                                <span class="badge badge-secondary badge-warning">Ping: {{ i['ping'] }}</span>
+                        </p>
                         <a href="/server/{{ i['name']}}" class="btn btn-primary">详情</a>
                     </div>
                 </div>

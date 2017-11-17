@@ -1,7 +1,7 @@
 #coding:utf8
 from flask import Blueprint, render_template
 #from monitor import app
-from monitor.repositories.repository import get_server_result_latest, read_db_server_within, read_db_service_within
+from monitor.repositories.repository import get_server_result_latest, read_db_server_latest, read_db_server_within, read_db_service_within
 from monitor.config import config
 
 web_module = Blueprint('web_module', __name__)
@@ -12,7 +12,16 @@ def index():
     result = []
     for server in config['servers']:
         result.append(get_server_result_latest(server))
-    return render_template('index.html', result=result, server_list=result)
+    
+    for server in result:
+        if server['status'] == 0:
+            status = 0
+            break
+        elif server['status'] == 2:
+            status = 2
+            break
+        status = 1
+    return render_template('index.html', result=result, server_list=result, status=status)
 
 @web_module.route("/server/<servername>")
 def get_server(servername):
