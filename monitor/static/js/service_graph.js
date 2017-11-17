@@ -1,14 +1,14 @@
 var rsttime;
 
 $(document).ready(function(){
-    render_service_chart(24);
+    render_service_graph(24);
 });
 
 $('#timerange_select').change(function(){
-    render_service_chart($('#timerange_select').val());
+    render_service_graph($('#timerange_select').val());
 })
 
-function render_service_chart(time_range){
+function render_service_graph(time_range){
     $.ajax({
         url: '/api/get_service_from_server/' + current_server_name,
         success: function (service_result) {
