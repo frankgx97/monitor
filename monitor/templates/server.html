@@ -5,7 +5,7 @@
 <body>
     {% include 'header.html' %}
     <div class="container">
-        <h3>服务器：{{ result['servers'][0].name }}</h3>
+        <h3>Server: {{ result['servers'][0].name }}</h3>
         <!--span>cat.nyan.im</span-->
         <br>
         <h5>
@@ -18,10 +18,10 @@
             {% endif %}
             <span class="badge badge-secondary badge-warning">Ping: {{ result['servers'][0].ping }}</span>
         </h5>
-        <h4>PING</h4>
+        <h4>Ping</h4>
         <!-- ping chart -->
         <div id="pingchart" style="width: 100%;height:400px;"></div>
-        <h3>服务</h3>
+        <h3>Services: </h3>
         <div id="servicechartsection">
         </div>
     </div>
