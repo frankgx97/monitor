@@ -46,7 +46,7 @@ def read_db_service_within(service_name, hours):
     '''读取指定服务器的特定时间范围内监控记录'''
     current_time = datetime.datetime.now()
     one_day_ago = current_time - datetime.timedelta(hours=hours)
-    return list(reversed(Service.query.filter(Service.name == service_name, Service.time > one_day_ago).all()))
+    return list(Service.query.filter(Service.name == service_name, Service.time > one_day_ago).all())
 
 def write_db(data):
     for server in data['servers']:
