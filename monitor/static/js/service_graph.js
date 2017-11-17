@@ -13,7 +13,6 @@ $.ajax({
                         }
                         return [item[1], item[0], r];
                     });
-                    //console.log(data)
                     rsttime = result.time
                     service_series = {
                         name: service_item,
@@ -21,7 +20,7 @@ $.ajax({
                         data: data,
                         label: {
                             normal: {
-                                show: true
+                                show: false
                             }
                         },
                         itemStyle: {
@@ -32,7 +31,6 @@ $.ajax({
                         }
                     };
 
-                    console.log(service_series)
                     var service_option = {
                         title: {
                             text: service_item
@@ -69,7 +67,7 @@ $.ajax({
                         },
                         series: service_series
                     };
-                    $("#servicechartsection").append('<div id="' + service_item + '" style="width: 100%;height:400px;"></div>')
+                    $("#servicechartsection").append('<div id="' + service_item + '" style="width: 100%;height:200px;"></div>')
                     var serviceChart = echarts.init(document.getElementById(service_item));
                     serviceChart.setOption(service_option);
                 }
