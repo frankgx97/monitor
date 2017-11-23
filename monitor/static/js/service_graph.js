@@ -78,7 +78,7 @@ function render_service_graph(time_range){
                             series: service_series
                         };
                         $("#servicechartsection").append('<div id="' + service_item + '" style="width: 100%;height:200px;"></div>')
-                        var serviceChart = echarts.init(document.getElementById(service_item));
+                        var serviceChart = echarts.init(document.getElementById(service_item),'infographic');
                         serviceChart.setOption(service_option);
                     }
                 });

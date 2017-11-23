@@ -13,7 +13,7 @@ function render_server_graph(time_range){
     $.ajax({
         url: '/api/get_server_data/' + current_server_name + '/' + time_range,
         success: function (result) {
-            var pingChart = echarts.init(document.getElementById('pingchart'));
+            var pingChart = echarts.init(document.getElementById('pingchart'),'macarons');
     
             var server_series = [];
             for (var i in result) {
