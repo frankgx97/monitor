@@ -10,7 +10,7 @@ RUN set -ex  \
 && apk add --no-cache --virtual .build-deps mariadb-dev mariadb-client mariadb-libs gcc python-dev py-pip musl-dev linux-headers\
 && pip install --no-cache-dir -r requirements.txt \
 && apk del .build-deps \
-&& apk add python
+&& apk add --no-cache python
 
 EXPOSE 5000
 
