@@ -16,11 +16,16 @@ function render_server_graph(time_range){
             var pingChart = echarts.init(document.getElementById('pingchart'),'shine');
     
             var server_series = [];
+            var lengend = [];
             for (var i in result) {
                 data = [];
                 for (var j = 0; j < result[i].data.length; j++) {
+                    if (result[i].data[j] > 600 || result[i].data[j] < 0){
+                        result[i].data[j] = 600;
+                    }
                     data.push([result[i].date[j], result[i].data[j]]);
                 }
+                lengend.push(i);
                 server_series.push({
                     name: i,
                     type: 'line',
@@ -34,9 +39,14 @@ function render_server_graph(time_range){
                 title: {
                     text: current_server_name
                 },
-                tooltip: {},
+                tooltip: {
+                    trigger: 'none',
+                    axisPointer: {
+                        type: 'cross'
+                    }
+                },
                 legend: {
-                    //data:['销量']
+                    data:lengend
                 },
                 xAxis: {
                     type: 'time'
