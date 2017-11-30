@@ -18,6 +18,7 @@ def get_server_result_latest(server):
     server_result['status'] = server_result_db_read.status
     server_result['ping'] = server_result_db_read.ping
     server_result['services'] = []
+    '''
     for service in server['services']:
         service_result = {}
         service_result_db_read = read_db_service_latest(service['name'])
@@ -26,6 +27,8 @@ def get_server_result_latest(server):
         service_result['http'] = service_result_db_read.http
         service_result['https'] = service_result_db_read.https
         server_result['services'].append(service_result)
+    print server_result
+    '''
     return server_result
 
 def read_db_server_latest(server_name):
