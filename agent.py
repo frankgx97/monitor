@@ -23,6 +23,14 @@ class MonitorInstance():
             return 'offline'
 
     def get_ping(self):
+        counter = 0
+        while counter < 3:
+            ping_rst = self.do_ping()
+            if ping_rst <= 600 and ping_rst > 0:
+                break
+        return ping_rst
+
+    def do_ping(self):
         if self.config['ping']:
             try:
                 r = pyping.ping(self.config['server'])
