@@ -26,6 +26,7 @@ class MonitorInstance():
         counter = 0
         while counter < 3:
             ping_rst = self.do_ping()
+            counter += 1
             if ping_rst <= 600 and ping_rst > 0:
                 break
         return ping_rst
